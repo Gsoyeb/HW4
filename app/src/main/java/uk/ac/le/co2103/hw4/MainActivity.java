@@ -18,6 +18,7 @@ import uk.ac.le.co2103.hw4.R;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
+    ShoppingDatabase shoppingDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
+        shoppingDatabase = ShoppingDatabase.getInstance(MainActivity.this);
 
         final FloatingActionButton button = findViewById(R.id.fab);
         button.setOnClickListener(view -> {

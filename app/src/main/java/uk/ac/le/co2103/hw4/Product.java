@@ -1,5 +1,6 @@
 package uk.ac.le.co2103.hw4;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
@@ -7,6 +8,7 @@ import androidx.room.PrimaryKey;
 @Entity(foreignKeys = @ForeignKey(entity = ShoppingList.class, parentColumns = "listId", childColumns = "listId", onDelete = ForeignKey.CASCADE))
 public class Product {
     @PrimaryKey
+    @NonNull
     private String name;
 
     private int quantity;

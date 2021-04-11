@@ -12,17 +12,17 @@ import java.util.List;
 @Dao
 public interface ProductDao {
     @Insert
-    void insert(ShoppingList shoppingList);
+    void insert(Product product);
 
     @Update
-    void update(ShoppingList shoppingList);
+    void update(Product product);
 
     @Delete
-    void delete(ShoppingList shoppingList);
+    void delete(Product product);
 
     @Query("delete from Product")
-    void deleteAllShoppingLists();
+    void deleteAllProducts();
 
     @Query("select * from Product order by name")
-    LiveData<List<ShoppingList>> getAllShoppingLists();
+    LiveData<List<Product>> getAllProducts();
 }
