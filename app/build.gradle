@@ -58,4 +58,8 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"
     androidTestImplementation "androidx.test:rules:$rootProject.androidxJunitVersion"
     androidTestImplementation "androidx.test:runner:$rootProject.androidxJunitVersion"
+
+    //Image
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+
 }
