@@ -7,6 +7,10 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
+import uk.ac.le.co2103.hw4.DB.ShoppingDatabase;
+import uk.ac.le.co2103.hw4.DB.ShoppingList;
+import uk.ac.le.co2103.hw4.DB.ShoppingListDao;
+
 public class ShoppingListRepository {
     private ShoppingListDao shoppingListDao;
     private LiveData<List<ShoppingList>> allShoppingLists;

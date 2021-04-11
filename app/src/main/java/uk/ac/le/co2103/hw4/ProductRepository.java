@@ -7,6 +7,10 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
+import uk.ac.le.co2103.hw4.DB.Product;
+import uk.ac.le.co2103.hw4.DB.ProductDao;
+import uk.ac.le.co2103.hw4.DB.ShoppingDatabase;
+
 public class ProductRepository {
     private ProductDao productDao;
     private LiveData<List<Product>> allProducts;

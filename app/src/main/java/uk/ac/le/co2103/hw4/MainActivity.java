@@ -1,24 +1,18 @@
 package uk.ac.le.co2103.hw4;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import uk.ac.le.co2103.hw4.R;
+import uk.ac.le.co2103.hw4.DB.ShoppingDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    ShoppingDatabase shoppingDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        shoppingDatabase = ShoppingDatabase.getInstance(MainActivity.this);
+
 
         final FloatingActionButton button = findViewById(R.id.fab);
         button.setOnClickListener(view -> {

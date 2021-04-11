@@ -1,4 +1,4 @@
-package uk.ac.le.co2103.hw4;
+package uk.ac.le.co2103.hw4.DB;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

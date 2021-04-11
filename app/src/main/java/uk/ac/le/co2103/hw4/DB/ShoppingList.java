@@ -1,4 +1,4 @@
-package uk.ac.le.co2103.hw4;
+package uk.ac.le.co2103.hw4.DB;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
