@@ -11,8 +11,7 @@ public class ShoppingList {
     private String name;
     private int image;
 
-    public ShoppingList(int listId, String name, int image) {
-        this.listId = listId;
+    public ShoppingList(String name, int image) {
         this.name = name;
         this.image = image;
     }
@@ -27,5 +26,9 @@ public class ShoppingList {
 
     public int getImage() {
         return image;
+    }
+
+    public void setListId(int listId) {
+        this.listId = listId;
     }
 }
