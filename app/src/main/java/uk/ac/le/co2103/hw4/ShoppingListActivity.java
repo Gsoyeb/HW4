@@ -20,15 +20,11 @@ public class ShoppingListActivity extends AppCompatActivity {
 
     private ProductViewModel productViewModel;
 
-    public static int id;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_list);
 
-        Intent intent = getIntent();
-        id = intent.getIntExtra(EXTRA_ID,-1);
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view_product);
         recyclerView.setLayoutManager(new LinearLayoutManager(ShoppingListActivity.this));
@@ -45,12 +41,13 @@ public class ShoppingListActivity extends AppCompatActivity {
             }
         });
 
+        setProducts();
 
     }
 
-//    public void setProducts(){
-//        Intent intent = getIntent();
-//        int id = intent.getIntExtra(EXTRA_ID,-1);
+    public void setProducts(){
+        Intent intent = getIntent();
+        int id = intent.getIntExtra(EXTRA_ID,-1);
 //        for (Product product : productViewModel.getAllProducts()){} //problem. Need to do it from the DAO
-//    }
+    }
 }
