@@ -45,19 +45,12 @@ public class ShoppingListActivity extends AppCompatActivity {
         sizeProducts = adapter.getItemCount();
 
         productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
-        productViewModel.getAllProducts().observe(this, new Observer<List<Product>>() {
+        productViewModel.getAllProductsById(ID).observe(this, new Observer<List<Product>>() {
             @Override
             public void onChanged(List<Product> products) {
                 adapter.setProducts(products);
             }
         });
 
-
     }
-
-//    public void setProducts(){
-//        Intent intent = getIntent();
-//        int id = intent.getIntExtra(EXTRA_ID,-1);
-////        for (Product product : productViewModel.getAllProducts()){} //problem. Need to do it from the DAO
-//    }
 }

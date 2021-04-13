@@ -1,6 +1,7 @@
 package uk.ac.le.co2103.hw4.ModelView;
 
 import android.app.Application;
+import android.app.Notification;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -14,11 +15,17 @@ import uk.ac.le.co2103.hw4.Repo.ProductRepository;
 public class ProductViewModel extends AndroidViewModel {
     private ProductRepository repository;
     private LiveData<List<Product>> allProducts;
+    private LiveData<List<Product>> allProductsById;
 
     public ProductViewModel(@NonNull Application application) {
         super(application);
         repository = new ProductRepository(application);
         allProducts = repository.getAllProducts();
+    }
+
+    public LiveData<List<Product>> getAllProductsById(int id){
+        allProductsById = repository.getAllProductsById(id);
+        return allProductsById;
     }
 
     //return --all methods
@@ -30,7 +37,7 @@ public class ProductViewModel extends AndroidViewModel {
 
     public void deleteAllProducts(){repository.deleteAllProducts();}
 
-    public LiveData<List<Product>> getAllProducts() {
-        return allProducts;
-    }
+//    public LiveData<List<Product>> getAllProducts() {
+//        return allProducts;
+//    }
 }

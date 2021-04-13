@@ -12,15 +12,20 @@ import uk.ac.le.co2103.hw4.DB.ProductDao;
 import uk.ac.le.co2103.hw4.DB.ShoppingDatabase;
 
 public class ProductRepository {
+    private ShoppingDatabase db;
     private ProductDao productDao;
     private LiveData<List<Product>> allProducts;
     private LiveData<List<Product>> allProductsById;
 
     public ProductRepository(Application application){
-        ShoppingDatabase db = ShoppingDatabase.getInstance(application);
+        this.db = ShoppingDatabase.getInstance(application);
         productDao = db.productDao();
         allProducts = productDao.getAllProducts();
+    }
 
+    public LiveData<List<Product>> getAllProductsById(int id){
+        allProductsById = productDao.getAllProductsById(id);
+        return allProductsById;
     }
 
     public LiveData<List<Product>> getAllProducts() {
