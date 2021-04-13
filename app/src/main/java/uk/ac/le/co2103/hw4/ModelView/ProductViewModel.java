@@ -14,12 +14,15 @@ import uk.ac.le.co2103.hw4.Repo.ProductRepository;
 public class ProductViewModel extends AndroidViewModel {
     private ProductRepository repository;
     private LiveData<List<Product>> allProducts;
+    private LiveData<List<Product>> allProductsById;
+
 
     public ProductViewModel(@NonNull Application application) {
         super(application);
         repository = new ProductRepository(application);
         allProducts = repository.getAllProducts();
     }
+
 
     //return --all methods
     public void insert(Product product){repository.insert(product);}

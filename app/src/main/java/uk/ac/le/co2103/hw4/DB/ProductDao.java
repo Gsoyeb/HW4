@@ -25,4 +25,7 @@ public interface ProductDao {
 
     @Query("select * from Product order by name")
     LiveData<List<Product>> getAllProducts();
+
+    @Query("select * from Product where listId=:listid order by name")
+    LiveData<List<Product>> getAllProductsById(int listid);
 }
