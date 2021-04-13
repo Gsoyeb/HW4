@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -14,7 +15,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-import uk.ac.le.co2103.hw4.DB.ShoppingDatabase;
+import uk.ac.le.co2103.hw4.Adapter.ShoppingAdapter;
 import uk.ac.le.co2103.hw4.DB.ShoppingList;
 import uk.ac.le.co2103.hw4.ModelView.ShoppingListViewModel;
 
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate()");
         setContentView(R.layout.activity_main);
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = findViewById(R.id.recycler_view_shoppingList);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         recyclerView.setHasFixedSize(true);
 
@@ -45,12 +46,23 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
         final FloatingActionButton button = findViewById(R.id.fab);
         button.setOnClickListener(view -> {
             Log.d(TAG, "Floating action button clicked.");
             Toast.makeText(getApplicationContext(), "Not implemented yet.", Toast.LENGTH_LONG).show();
         });
+
+
+        //click RecyclerView
+        adapter.setOnItemClickListener(new ShoppingAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(ShoppingList shoppingList) {
+                Intent intent = new Intent(MainActivity.this, ShoppingListActivity.class);
+                intent.putExtra(ShoppingListActivity.EXTRA_ID, shoppingList.getListId());
+                startActivity(intent);
+            }
+        });
+
     }
 
 }
