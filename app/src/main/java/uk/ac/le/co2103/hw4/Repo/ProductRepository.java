@@ -14,13 +14,11 @@ import uk.ac.le.co2103.hw4.DB.ShoppingDatabase;
 public class ProductRepository {
     private ProductDao productDao;
     private LiveData<List<Product>> allProducts;
-    private LiveData<List<Product>> allProductsById;
 
     public ProductRepository(Application application){
         ShoppingDatabase db = ShoppingDatabase.getInstance(application);
         productDao = db.productDao();
         allProducts = productDao.getAllProducts();
-
     }
 
     public LiveData<List<Product>> getAllProducts() {
