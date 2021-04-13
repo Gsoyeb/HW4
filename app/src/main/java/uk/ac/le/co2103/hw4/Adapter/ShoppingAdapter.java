@@ -1,4 +1,4 @@
-package uk.ac.le.co2103.hw4;
+package uk.ac.le.co2103.hw4.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import uk.ac.le.co2103.hw4.DB.ShoppingList;
+import uk.ac.le.co2103.hw4.R;
 
 public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.ShoppingListHolder>{
     private List<ShoppingList> shoppingLists = new ArrayList<>();
+    private OnItemClickListener listener;
 
     class ShoppingListHolder extends RecyclerView.ViewHolder{
         private TextView name;
@@ -25,6 +27,14 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
             super(itemView);
             name = itemView.findViewById(R.id.myShoppingName);
             image = itemView.findViewById(R.id.myImageView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION){listener.onItemClick(shoppingLists.get(position));}
+                }
+            });
         }
     }
 
@@ -50,6 +60,15 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
     public void setShoppingLists(List<ShoppingList> shoppingLists){
         this.shoppingLists = shoppingLists;
         notifyDataSetChanged();
+    }
+
+    //onClick
+    public interface OnItemClickListener {
+        void onItemClick(ShoppingList shoppingList);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.listener = listener;
     }
 
 }
