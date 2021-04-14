@@ -1,11 +1,13 @@
 package uk.ac.le.co2103.hw4;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -60,6 +62,14 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, ShoppingListActivity.class);
                 intent.putExtra(ShoppingListActivity.EXTRA_ID, shoppingList.getListId());
                 startActivity(intent);
+            }
+        });
+
+        //longClick RecyclerView
+        adapter.setOnItemLongClickListener(new ShoppingAdapter.OnItemLongClickListener() {
+            @Override
+            public void onItemLongClick(ShoppingList shoppingList) {
+                shoppingListViewModel.delete(shoppingList);
             }
         });
 
