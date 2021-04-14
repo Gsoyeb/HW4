@@ -69,7 +69,23 @@ public class MainActivity extends AppCompatActivity {
         adapter.setOnItemLongClickListener(new ShoppingAdapter.OnItemLongClickListener() {
             @Override
             public void onItemLongClick(ShoppingList shoppingList) {
-                shoppingListViewModel.delete(shoppingList);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setMessage("Are you sure you would like to delete this shopping list?");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        shoppingListViewModel.delete(shoppingList);
+                    }
+                });
+
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        return;
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
             }
         });
 
