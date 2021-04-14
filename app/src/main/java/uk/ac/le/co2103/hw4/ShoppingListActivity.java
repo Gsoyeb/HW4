@@ -29,6 +29,8 @@ public class ShoppingListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_list);
 
+        setTitle("Products");
+
         Intent intent = getIntent();
         ID = intent.getIntExtra(EXTRA_ID,-1);
         if (ID == -1){

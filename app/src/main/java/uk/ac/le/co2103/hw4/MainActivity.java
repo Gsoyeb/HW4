@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate()");
         setContentView(R.layout.activity_main);
 
+        setTitle("Shopping List");
+
         RecyclerView recyclerView = findViewById(R.id.recycler_view_shoppingList);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         recyclerView.setHasFixedSize(true);
