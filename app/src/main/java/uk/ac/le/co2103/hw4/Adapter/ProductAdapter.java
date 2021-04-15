@@ -12,10 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import uk.ac.le.co2103.hw4.DB.Product;
+import uk.ac.le.co2103.hw4.DB.ShoppingList;
 import uk.ac.le.co2103.hw4.R;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductHolder>{
     private List<Product> products = new ArrayList<>();
+    private ProductAdapter.OnItemClickListener listener;
+
 
     class ProductHolder extends RecyclerView.ViewHolder{
         private TextView name;
@@ -27,6 +30,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
             name = itemView.findViewById(R.id.myProductName);
             quantity = itemView.findViewById(R.id.myProductQuantity);
             unit = itemView.findViewById(R.id.myProductUnit);
+
+            //onClick
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION){listener.onItemClick(products.get(position));}
+                }
+            });
         }
     }
 
@@ -53,5 +65,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
     public void setProducts(List<Product> products){
         this.products = products;
         notifyDataSetChanged();
+    }
+
+    //onClick
+    public interface OnItemClickListener {
+        void onItemClick(Product product);
+    }
+
+    public void setOnItemClickListener(ProductAdapter.OnItemClickListener listener){
+        this.listener = listener;
     }
 }

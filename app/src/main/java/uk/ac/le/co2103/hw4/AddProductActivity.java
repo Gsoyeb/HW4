@@ -28,9 +28,9 @@ public class AddProductActivity extends AppCompatActivity implements AdapterView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
 
-        nameProduct = findViewById(R.id.edit_product_name);
-        quantityProduct = findViewById(R.id.edit_product_quantity);
-        unitProduct = findViewById(R.id.edit_text_unit);
+        nameProduct = findViewById(R.id.add_product_name);
+        quantityProduct = findViewById(R.id.add_product_quantity);
+        unitProduct = findViewById(R.id.add_text_unit);
         button = findViewById(R.id.btnAddProduct);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.labels_unit, android.R.layout.simple_spinner_dropdown_item);

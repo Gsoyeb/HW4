@@ -1,12 +1,14 @@
 package uk.ac.le.co2103.hw4;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -23,8 +25,9 @@ import uk.ac.le.co2103.hw4.ModelView.ProductViewModel;
 
 public class ShoppingListActivity extends AppCompatActivity {
     public static final String EXTRA_ID = "uk.edu.le.co2103.hw4.ID";
-    public static final int ADD_PRODUCT_ACTIVITY_REQUEST_CODE = 11;
 
+    public static final int ADD_PRODUCT_ACTIVITY_REQUEST_CODE = 11;
+    public static final int EDIT_PRODUCT_ACTIVITY_REQUEST_CODE = 12;
 
     private ProductViewModel productViewModel;
     private int sizeProducts;
@@ -68,6 +71,29 @@ public class ShoppingListActivity extends AppCompatActivity {
                 Intent intent1 = new Intent(ShoppingListActivity.this, AddProductActivity.class);
 //                intent.putExtra(EXTRA_ID, ID);
                 startActivityForResult(intent1, ADD_PRODUCT_ACTIVITY_REQUEST_CODE);
+            }
+        });
+
+        adapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Product product) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ShoppingListActivity.this);
+                builder.setMessage("Do you like delete or Update?");
+                builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+
+                builder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        productViewModel.delete(product);
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
             }
         });
 
