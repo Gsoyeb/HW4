@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 public class CreateListActivity extends AppCompatActivity {
-    public static final String EXTRA_REPLY_IMAGE = "uk.ac.le.co2103.hw4.REPLY.IMAGE";
+    public static final String EXTRA_REPLY_SHOPPING_IMAGE = "uk.ac.le.co2103.hw4.REPLY.SHOPPING_IMAGE";
     public static final String EXTRA_REPLY_SHOPPING_NAME = "uk.ac.le.co2103.hw4.REPLY.SHOPPING_NAME";
 
     private ImageView pictureImage;
@@ -38,7 +38,7 @@ public class CreateListActivity extends AppCompatActivity {
                 }else {
                     String name = editShoppingName.getText().toString();
                     int image = pictureImage.getResources().getIdentifier("ic_launcher","drawable", getPackageName());
-                    replyIntent.putExtra(EXTRA_REPLY_IMAGE, image);
+                    replyIntent.putExtra(EXTRA_REPLY_SHOPPING_IMAGE, image);
                     replyIntent.putExtra(EXTRA_REPLY_SHOPPING_NAME, name);
                     setResult(RESULT_OK, replyIntent);
                     finish();

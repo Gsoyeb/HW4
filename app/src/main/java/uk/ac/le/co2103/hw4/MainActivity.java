@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == ADD_SHOPPING_LIST_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK){
             String name = data.getStringExtra(CreateListActivity.EXTRA_REPLY_SHOPPING_NAME);
-            int image = data.getIntExtra(CreateListActivity.EXTRA_REPLY_IMAGE, -1);
+            int image = data.getIntExtra(CreateListActivity.EXTRA_REPLY_SHOPPING_IMAGE, -1);
 
             ShoppingList shoppingList = new ShoppingList(name, image);
             shoppingListViewModel.insert(shoppingList);
