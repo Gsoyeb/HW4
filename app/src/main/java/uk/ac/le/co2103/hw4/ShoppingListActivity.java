@@ -26,6 +26,9 @@ import uk.ac.le.co2103.hw4.ModelView.ProductViewModel;
 public class ShoppingListActivity extends AppCompatActivity {
     public static final String EXTRA_ID = "uk.edu.le.co2103.hw4.ID";
 
+
+
+
     public static final int ADD_PRODUCT_ACTIVITY_REQUEST_CODE = 11;
     public static final int EDIT_PRODUCT_ACTIVITY_REQUEST_CODE = 12;
 
@@ -68,9 +71,8 @@ public class ShoppingListActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(ShoppingListActivity.this, AddProductActivity.class);
-//                intent.putExtra(EXTRA_ID, ID);
-                startActivityForResult(intent1, ADD_PRODUCT_ACTIVITY_REQUEST_CODE);
+                Intent addIntent = new Intent(ShoppingListActivity.this, AddProductActivity.class);
+                startActivityForResult(addIntent, ADD_PRODUCT_ACTIVITY_REQUEST_CODE);
             }
         });
 
@@ -82,7 +84,11 @@ public class ShoppingListActivity extends AppCompatActivity {
                 builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        Intent editIntent = new Intent(ShoppingListActivity.this, UpdateProductActivity.class);
+                        editIntent.putExtra(UpdateProductActivity.EXTRA_REPLY_EDIT_PRODUCT_NAME, product.getName());
+                        editIntent.putExtra(UpdateProductActivity.EXTRA_REPLY_EDIT_PRODUCT_QUANTITY, product.getQuantity());
+                        editIntent.putExtra(UpdateProductActivity.EXTRA_REPLY_EDIT_PRODUCT_UNIT, product.getUnit());
+                        startActivityForResult(editIntent, EDIT_PRODUCT_ACTIVITY_REQUEST_CODE);
                     }
                 });
 
@@ -104,14 +110,24 @@ public class ShoppingListActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == ADD_PRODUCT_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK){
-            String name = data.getStringExtra(AddProductActivity.EXTRA_REPLY_PRODUCT_NAME);
-            int quantity = data.getIntExtra(AddProductActivity.EXTRA_REPLY_PRODUCT_QUANTITY,-1);
-            String unit = data.getStringExtra(AddProductActivity.EXTRA_REPLY_PRODUCT_UNIT);
+            String name = data.getStringExtra(AddProductActivity.EXTRA_REPLY_ADD_PRODUCT_NAME);
+            int quantity = data.getIntExtra(AddProductActivity.EXTRA_REPLY_ADD_PRODUCT_QUANTITY,-1);
+            String unit = data.getStringExtra(AddProductActivity.EXTRA_REPLY_ADD_PRODUCT_UNIT);
 
             Product product = new Product(name, quantity, unit, ID);
             productViewModel.insert(product);
 
             Toast.makeText(this, "Product saved",Toast.LENGTH_SHORT).show();
+        }
+        else if (requestCode == EDIT_PRODUCT_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK){
+            String name = data.getStringExtra(UpdateProductActivity.EXTRA_REPLY_EDIT_PRODUCT_NAME);
+            int quantity = data.getIntExtra(UpdateProductActivity.EXTRA_REPLY_EDIT_PRODUCT_QUANTITY,-1);
+            String unit = data.getStringExtra(UpdateProductActivity.EXTRA_REPLY_EDIT_PRODUCT_UNIT);
+
+            Product product = new Product(name, quantity, unit, ID);
+            productViewModel.update(product);
+
+            Toast.makeText(this, "Product edited",Toast.LENGTH_SHORT).show();
         }
         else {
             Toast.makeText(this, "Product failed to save",Toast.LENGTH_SHORT).show();

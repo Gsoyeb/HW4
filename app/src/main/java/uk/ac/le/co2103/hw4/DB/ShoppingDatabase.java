@@ -51,7 +51,7 @@ public abstract class ShoppingDatabase extends RoomDatabase {
             //Product
             productDao.insert(new Product("MacBook",1,"Unit",1));
             productDao.insert(new Product("iPad",2,"Unit",1));
-            productDao.insert(new Product("Rice",1,"Kilogram",2));
+            productDao.insert(new Product("Rice",1,"Kg",2));
             productDao.insert(new Product("Milk",3,"Liter",2));
             productDao.insert(new Product("Rolex",1,"Unit",3));
             productDao.insert(new Product("Hublot",1,"Unit",3));

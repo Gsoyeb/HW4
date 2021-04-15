@@ -14,9 +14,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 public class AddProductActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    public static final String EXTRA_REPLY_PRODUCT_QUANTITY = "uk.ac.le.co2103.hw4.REPLY.PRODUCT_QUANTITY";
-    public static final String EXTRA_REPLY_PRODUCT_NAME = "uk.ac.le.co2103.hw4.REPLY.PRODUCT_NAME";
-    public static final String EXTRA_REPLY_PRODUCT_UNIT = "uk.ac.le.co2103.hw4.REPLY.PRODUCT_UNIT";
+    public static final String EXTRA_REPLY_ADD_PRODUCT_QUANTITY = "uk.ac.le.co2103.hw4.REPLY.ADD_PRODUCT_QUANTITY";
+    public static final String EXTRA_REPLY_ADD_PRODUCT_NAME = "uk.ac.le.co2103.hw4.REPLY.ADD_PRODUCT_NAME";
+    public static final String EXTRA_REPLY_ADD_PRODUCT_UNIT = "uk.ac.le.co2103.hw4.REPLY.ADD_PRODUCT_UNIT";
 
     private EditText nameProduct;
     private EditText quantityProduct;
@@ -36,7 +36,7 @@ public class AddProductActivity extends AppCompatActivity implements AdapterView
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.labels_unit, android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         unitProduct.setAdapter(adapter);
-        unitProduct.setOnItemSelectedListener(this);
+        unitProduct.setOnItemSelectedListener(AddProductActivity.this);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,9 +50,9 @@ public class AddProductActivity extends AppCompatActivity implements AdapterView
                     int quantity = Integer.parseInt(quantityProduct.getText().toString().trim());
                     String unit = String.valueOf(unitProduct.getSelectedItem());
 
-                    replyIntent.putExtra(EXTRA_REPLY_PRODUCT_NAME, name);
-                    replyIntent.putExtra(EXTRA_REPLY_PRODUCT_QUANTITY, quantity);
-                    replyIntent.putExtra(EXTRA_REPLY_PRODUCT_UNIT, unit);
+                    replyIntent.putExtra(EXTRA_REPLY_ADD_PRODUCT_NAME, name);
+                    replyIntent.putExtra(EXTRA_REPLY_ADD_PRODUCT_QUANTITY, quantity);
+                    replyIntent.putExtra(EXTRA_REPLY_ADD_PRODUCT_UNIT, unit);
 
                     setResult(RESULT_OK, replyIntent);
                     finish();
