@@ -1,5 +1,6 @@
 package uk.ac.le.co2103.hw4;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -11,6 +12,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -23,6 +25,7 @@ import uk.ac.le.co2103.hw4.ModelView.ShoppingListViewModel;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
+    public static final int ADD_SHOPPING_LIST_ACTIVITY_REQUEST_CODE = 1;
 
     private ShoppingListViewModel shoppingListViewModel;
 
@@ -91,6 +94,35 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Fab --Add shoppingList
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, CreateListActivity.class);
+                startActivityForResult(intent, ADD_SHOPPING_LIST_ACTIVITY_REQUEST_CODE);
+            }
+        });
+
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == ADD_SHOPPING_LIST_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK){
+            String name = data.getStringExtra(CreateListActivity.EXTRA_REPLY_SHOPPING_NAME);
+            int image = data.getIntExtra(CreateListActivity.EXTRA_REPLY_IMAGE, -1);
+
+            ShoppingList shoppingList = new ShoppingList(name, image);
+            shoppingListViewModel.insert(shoppingList);
+
+            Toast.makeText(this, "Shopping list saved",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(this, "Shopping list failed to save",Toast.LENGTH_SHORT).show();
+        }
+
+    }
 }
