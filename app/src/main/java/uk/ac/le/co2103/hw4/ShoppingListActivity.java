@@ -44,7 +44,6 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         final ProductAdapter adapter = new ProductAdapter();
         recyclerView.setAdapter(adapter);
-        sizeProducts = adapter.getItemCount();
 
         productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
         productViewModel.getAllProductsById(ID).observe(this, new Observer<List<Product>>() {
@@ -53,6 +52,7 @@ public class ShoppingListActivity extends AppCompatActivity {
                 adapter.setProducts(products);
             }
         });
+
 
     }
 }
