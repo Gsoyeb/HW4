@@ -26,9 +26,6 @@ import uk.ac.le.co2103.hw4.ModelView.ProductViewModel;
 public class ShoppingListActivity extends AppCompatActivity {
     public static final String EXTRA_ID = "uk.edu.le.co2103.hw4.ID";
 
-
-
-
     public static final int ADD_PRODUCT_ACTIVITY_REQUEST_CODE = 11;
     public static final int EDIT_PRODUCT_ACTIVITY_REQUEST_CODE = 12;
 
