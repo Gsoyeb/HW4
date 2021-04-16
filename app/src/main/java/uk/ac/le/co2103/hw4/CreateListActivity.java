@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -18,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 public class CreateListActivity extends AppCompatActivity {
     public static final String EXTRA_REPLY_SHOPPING_IMAGE = "uk.ac.le.co2103.hw4.REPLY.SHOPPING_IMAGE";
@@ -29,6 +32,8 @@ public class CreateListActivity extends AppCompatActivity {
     private Button buttonSave;
     private Button buttonUpload;
 
+    private String URI;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,16 +44,6 @@ public class CreateListActivity extends AppCompatActivity {
         buttonSave = findViewById(R.id.btn_create_ShoppingList);
         buttonUpload = findViewById(R.id.btnImageChoose);
 
-        buttonUpload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
-            }
-        });
-
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,12 +53,22 @@ public class CreateListActivity extends AppCompatActivity {
                     setResult(RESULT_CANCELED, replyIntent);
                 }else {
                     String name = editShoppingName.getText().toString();
-                    int image = pictureImage.getResources().getIdentifier("ic_launcher","drawable", getPackageName());
-                    replyIntent.putExtra(EXTRA_REPLY_SHOPPING_IMAGE, image);
+//                    int image = pictureImage.getResources().getIdentifier("ic_launcher","drawable", getPackageName());
+                    replyIntent.putExtra(EXTRA_REPLY_SHOPPING_IMAGE, URI);
                     replyIntent.putExtra(EXTRA_REPLY_SHOPPING_NAME, name);
                     setResult(RESULT_OK, replyIntent);
                     finish();
                 }
+            }
+        });
+
+        buttonUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
             }
         });
 
@@ -76,9 +81,13 @@ public class CreateListActivity extends AppCompatActivity {
             if (resultCode == Activity.RESULT_OK) {
                 if (data != null) {
                     try {
-                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
-                        Drawable drawable = new BitmapDrawable(getResources(), bitmap);
-                        pictureImage.setImageDrawable(drawable);
+//                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
+//                        Drawable drawable = new BitmapDrawable(getResources(), bitmap);
+//                        pictureImage.setImageDrawable(drawable);
+                        Uri selectedImage = data.getData();
+                        URI = selectedImage.toString();
+                        InputStream imageStream = getContentResolver().openInputStream(selectedImage);
+                        pictureImage.setImageBitmap(BitmapFactory.decodeStream(imageStream));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

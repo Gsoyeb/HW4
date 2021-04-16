@@ -44,9 +44,9 @@ public abstract class ShoppingDatabase extends RoomDatabase {
         @Override
         protected Void doInBackground(Void... voids) {
             //Shopping list
-            shoppingListDao.insert(new ShoppingList("Electronics",0));
-            shoppingListDao.insert(new ShoppingList("Grocery", 0));
-            shoppingListDao.insert(new ShoppingList("Watches", 0));
+            shoppingListDao.insert(new ShoppingList("Electronics",""));
+            shoppingListDao.insert(new ShoppingList("Grocery", ""));
+            shoppingListDao.insert(new ShoppingList("Watches", ""));
 
             //Product
             productDao.insert(new Product("MacBook",1,"Unit",1));

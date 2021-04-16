@@ -9,9 +9,9 @@ public class ShoppingList {
     private int listId;
 
     private String name;
-    private int image;
+    private String image;
 
-    public ShoppingList(String name, int image) {
+    public ShoppingList(String name, String image) {
         this.name = name;
         this.image = image;
     }
@@ -24,7 +24,7 @@ public class ShoppingList {
         return name;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 

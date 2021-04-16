@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         recyclerView.setHasFixedSize(true);
 
-        final ShoppingAdapter adapter = new ShoppingAdapter();
+        final ShoppingAdapter adapter = new ShoppingAdapter(this);
         recyclerView.setAdapter(adapter);
 
         shoppingListViewModel = new ViewModelProvider(this).get(ShoppingListViewModel.class);
@@ -113,9 +113,9 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == ADD_SHOPPING_LIST_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK){
             String name = data.getStringExtra(CreateListActivity.EXTRA_REPLY_SHOPPING_NAME);
-            int image = data.getIntExtra(CreateListActivity.EXTRA_REPLY_SHOPPING_IMAGE, -1);
-
-            ShoppingList shoppingList = new ShoppingList(name, image);
+//            int image = data.getIntExtra(CreateListActivity.EXTRA_REPLY_SHOPPING_IMAGE, -1);
+            String imageUri = data.getStringExtra(CreateListActivity.EXTRA_REPLY_SHOPPING_IMAGE);
+            ShoppingList shoppingList = new ShoppingList(name, imageUri);
             shoppingListViewModel.insert(shoppingList);
 
             Toast.makeText(this, "Shopping list saved",Toast.LENGTH_SHORT).show();

@@ -1,7 +1,9 @@
 package uk.ac.le.co2103.hw4.Adapter;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +27,58 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
     private List<ShoppingList> shoppingLists = new ArrayList<>();
     private OnItemClickListener listener;
     private OnItemLongClickListener longListener;
+    public Context context;
+
+    public ShoppingAdapter(Context context){
+        this.context = context;
+    }
+
+
+    @NonNull
+    @Override
+    public ShoppingListHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item, parent, false);
+        return new ShoppingListHolder(itemView);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ShoppingListHolder holder, int position) {
+        ShoppingList currentShoppingList = shoppingLists.get(position);
+        holder.name.setText(currentShoppingList.getName());
+        Uri uri = Uri.parse(currentShoppingList.getImage());
+        Glide.with(context).load(uri).into(holder.image);
+//        holder.image.setImageURI(Uri.parse(new File(currentShoppingList.getImage()).toString()));
+//        holder.image.setImageResource(currentShoppingList.getImage());
+    }
+
+    @Override
+    public int getItemCount() {
+        return shoppingLists.size();
+    }
+
+    public void setShoppingLists(List<ShoppingList> shoppingLists){
+        this.shoppingLists = shoppingLists;
+        notifyDataSetChanged();
+    }
+
+    //onClick
+    public interface OnItemClickListener {
+        void onItemClick(ShoppingList shoppingList);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.listener = listener;
+    }
+
+    //onLongClick
+    public interface OnItemLongClickListener{
+        void onItemLongClick(ShoppingList shoppingList);
+    }
+
+    public void setOnItemLongClickListener(OnItemLongClickListener listener){
+        this.longListener = listener;
+    }
+
 
     class ShoppingListHolder extends RecyclerView.ViewHolder{
         private TextView name;
@@ -54,47 +111,4 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
         }
 
     }
-
-    @NonNull
-    @Override
-    public ShoppingListHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item, parent, false);
-        return new ShoppingListHolder(itemView);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull ShoppingListHolder holder, int position) {
-        ShoppingList currentShoppingList = shoppingLists.get(position);
-        holder.name.setText(currentShoppingList.getName());
-        holder.image.setImageResource(currentShoppingList.getImage());
-    }
-
-    @Override
-    public int getItemCount() {
-        return shoppingLists.size();
-    }
-
-    public void setShoppingLists(List<ShoppingList> shoppingLists){
-        this.shoppingLists = shoppingLists;
-        notifyDataSetChanged();
-    }
-
-    //onClick
-    public interface OnItemClickListener {
-        void onItemClick(ShoppingList shoppingList);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener listener){
-        this.listener = listener;
-    }
-
-    //onLongClick
-    public interface OnItemLongClickListener{
-        void onItemLongClick(ShoppingList shoppingList);
-    }
-
-    public void setOnItemLongClickListener(OnItemLongClickListener listener){
-        this.longListener = listener;
-    }
-
 }
