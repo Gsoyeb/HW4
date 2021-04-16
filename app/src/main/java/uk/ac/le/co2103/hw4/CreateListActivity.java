@@ -53,7 +53,6 @@ public class CreateListActivity extends AppCompatActivity {
                     setResult(RESULT_CANCELED, replyIntent);
                 }else {
                     String name = editShoppingName.getText().toString();
-//                    int image = pictureImage.getResources().getIdentifier("ic_launcher","drawable", getPackageName());
                     replyIntent.putExtra(EXTRA_REPLY_SHOPPING_IMAGE, URI);
                     replyIntent.putExtra(EXTRA_REPLY_SHOPPING_NAME, name);
                     setResult(RESULT_OK, replyIntent);
@@ -81,9 +80,6 @@ public class CreateListActivity extends AppCompatActivity {
             if (resultCode == Activity.RESULT_OK) {
                 if (data != null) {
                     try {
-//                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
-//                        Drawable drawable = new BitmapDrawable(getResources(), bitmap);
-//                        pictureImage.setImageDrawable(drawable);
                         Uri selectedImage = data.getData();
                         URI = selectedImage.toString();
                         InputStream imageStream = getContentResolver().openInputStream(selectedImage);
