@@ -75,4 +75,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
     public void setOnItemClickListener(ProductAdapter.OnItemClickListener listener){
         this.listener = listener;
     }
+
+    public ArrayList<String> getNames(){
+        ArrayList<String> names = new ArrayList<>();
+        for (int i = 0; i < products.size(); i++){
+            names.add(products.get(i).getName());
+        }
+        return names;
+    }
+
 }

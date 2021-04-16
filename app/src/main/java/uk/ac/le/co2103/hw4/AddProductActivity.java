@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class AddProductActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     public static final String EXTRA_REPLY_ADD_PRODUCT_QUANTITY = "uk.ac.le.co2103.hw4.REPLY.ADD_PRODUCT_QUANTITY";
     public static final String EXTRA_REPLY_ADD_PRODUCT_NAME = "uk.ac.le.co2103.hw4.REPLY.ADD_PRODUCT_NAME";
@@ -22,6 +24,8 @@ public class AddProductActivity extends AppCompatActivity implements AdapterView
     private EditText quantityProduct;
     private Spinner unitProduct;
     private Button button;
+
+    private ArrayList<String> names;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,9 @@ public class AddProductActivity extends AppCompatActivity implements AdapterView
         unitProduct = findViewById(R.id.add_text_unit);
         button = findViewById(R.id.btnAddProduct);
 
+        Intent intent = getIntent();
+        names = intent.getStringArrayListExtra(ShoppingListActivity.EXTRA_NAMES);
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.labels_unit, android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         unitProduct.setAdapter(adapter);
@@ -42,8 +49,11 @@ public class AddProductActivity extends AppCompatActivity implements AdapterView
             @Override
             public void onClick(View view) {
                 Intent replyIntent = new Intent();
-                if (TextUtils.isEmpty(nameProduct.getText()) || TextUtils.isEmpty(quantityProduct.getText())){
-                    Toast.makeText(AddProductActivity.this, "Please enter name and quantity",Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(nameProduct.getText()) || TextUtils.isEmpty(quantityProduct.getText())) {
+                    Toast.makeText(AddProductActivity.this, "Please enter name and quantity", Toast.LENGTH_SHORT).show();
+                    setResult(RESULT_CANCELED, replyIntent);
+                }else if (names.contains(nameProduct.getText().toString())){
+                    Toast.makeText(AddProductActivity.this, "Name already exists in the database", Toast.LENGTH_SHORT).show();
                     setResult(RESULT_CANCELED, replyIntent);
                 }else {
                     String name = nameProduct.getText().toString();
