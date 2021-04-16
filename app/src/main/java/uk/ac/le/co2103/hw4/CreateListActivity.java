@@ -32,7 +32,7 @@ public class CreateListActivity extends AppCompatActivity {
     private Button buttonSave;
     private Button buttonUpload;
 
-    private String URI;
+    private String URI = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

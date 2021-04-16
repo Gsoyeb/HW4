@@ -18,7 +18,7 @@ public abstract class ShoppingDatabase extends RoomDatabase {
 
     public static synchronized ShoppingDatabase getInstance(Context context){
         if (INSTANCE == null){
-            INSTANCE = Room.databaseBuilder(context.getApplicationContext(), ShoppingDatabase.class, "Shopping_database").fallbackToDestructiveMigration().addCallback(roomCallback).build();
+            INSTANCE = Room.databaseBuilder(context.getApplicationContext(), ShoppingDatabase.class, "Shopping_database").fallbackToDestructiveMigration().build(); //.addCallback(roomCallback) add this before build if you want the pre-populated database
         }
         return INSTANCE;
     }

@@ -37,14 +37,31 @@ public class ShoppingListTest {
     @Rule
     public ActivityScenarioRule rule = new ActivityScenarioRule<>(MainActivity.class);
 
+    @BeforeClass
+    public static void clearDb(){
+        InstrumentationRegistry.getInstrumentation().getTargetContext().deleteDatabase("Shopping_database");
+    }
+
+    @Test
+    public void useAppContext(){
+        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        assertEquals("uk.ac.le.co2103.hw4", appContext.getPackageName());
+    }
+
     @Test
     public void testAddNewList() {
-        fail("Not implemented yet.");
+        onView(withId(R.id.fab)).perform(click());
+        onView(withId(R.id.shoppingList_name)).check(matches(isDisplayed()));
+        onView(withId(R.id.shoppingList_name)).perform(typeText("Birthday Party"), closeSoftKeyboard());
+        onView(withId(R.id.btn_create_ShoppingList)).perform(click());
+        onView(withText("Birthday Party")).check(matches(isDisplayed()));
+        onView(withId(R.id.recycler_view_shoppingList)).check(hasItemsCount(1));
     }
 
     @Test
     public void testDeleteList() {
-        fail("Not implemented yet.");
+        testAddNewList();
+
     }
 
     @Test
@@ -65,5 +82,18 @@ public class ShoppingListTest {
     @Test
     public void testDeleteProduct() {
         fail("Not implemented yet.");
+    }
+
+
+    public static ViewAssertion hasItemsCount(final int count) {
+        return new ViewAssertion() {
+            @Override public void check(View view, NoMatchingViewException e) {
+                if (!(view instanceof RecyclerView)) {
+                    throw e;
+                }
+                RecyclerView rv = (RecyclerView) view;
+                Assert.assertEquals(rv.getAdapter().getItemCount(), count);
+            }
+        };
     }
 }
