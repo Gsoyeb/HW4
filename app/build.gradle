@@ -39,7 +39,6 @@ dependencies {
 
     // Room
     implementation "androidx.room:room-runtime:$rootProject.roomVersion"
-    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.4.0-alpha05'
     annotationProcessor "androidx.room:room-compiler:$rootProject.roomVersion"
     androidTestImplementation "androidx.room:room-testing:$rootProject.roomVersion"
 
@@ -69,6 +68,9 @@ dependencies {
 
     //Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    // Set this dependency to build and run UI Automator tests
+    androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
 
 
 }

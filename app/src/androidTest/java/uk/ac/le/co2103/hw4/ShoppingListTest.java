@@ -9,6 +9,10 @@ import androidx.test.espresso.ViewAssertion;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.uiautomator.UiDevice;
+import androidx.test.uiautomator.UiObject;
+import androidx.test.uiautomator.UiObjectNotFoundException;
+import androidx.test.uiautomator.UiSelector;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -19,8 +23,10 @@ import org.junit.runner.RunWith;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static androidx.test.espresso.action.ViewActions.longClick;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.RootMatchers.isDialog;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
@@ -59,9 +65,11 @@ public class ShoppingListTest {
     }
 
     @Test
-    public void testDeleteList() {
+    public void testDeleteList() throws UiObjectNotFoundException {
         testAddNewList();
-
+        onView(withText("Birthday Party")).perform(longClick());
+        onView(withId(android.R.id.button1)).perform(click());  //button2 is for no
+        onView(withId(R.id.recycler_view_shoppingList)).check(hasItemsCount(0));
     }
 
     @Test
