@@ -53,7 +53,7 @@ public class AddProductActivity extends AppCompatActivity implements AdapterView
                     Toast.makeText(AddProductActivity.this, "Please enter name and quantity", Toast.LENGTH_SHORT).show();
                     setResult(RESULT_CANCELED, replyIntent);
                 }else if (names.contains(nameProduct.getText().toString())){
-                    Toast.makeText(AddProductActivity.this, "Name already exists in the database", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddProductActivity.this, "Product already exists", Toast.LENGTH_SHORT).show();
                     setResult(RESULT_CANCELED, replyIntent);
                 }else {
                     String name = nameProduct.getText().toString();
